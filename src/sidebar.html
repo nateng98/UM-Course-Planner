@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UM Courses Planner</title>
+    <style>
+      #coursePlannerSidebar {
+        position: fixed;
+        top: 15px;
+        right: 10px;
+        width: 40%;
+        height: 700px;
+        background-color: #fdfdfd;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        transition: height 0.3s, width 0.3s;
+        overflow: hidden;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      
+      #pluginTitle {
+        color: #3f629c;
+        transform: translateY(-10px);
+        transition: all 0.1s;
+      }
+
+      #courseContent {
+        font-size: 14px;
+        width: 20%;
+        float: left;
+      }
+      
+      #calendar {
+        width: 80%;
+        float: right;
+        height: 100%;
+      }
+
+      /* Make the day (Mon, Tue, etc.) smaller */
+      .fc-col-header-cell {
+        font-size: 15px;
+      }
+      /* Make the times in the left column (8:00 AM, 9:00 AM, etc.) smaller */
+      .fc-timegrid-slot {
+        font-size: 14px;
+      }
+      /* Make event titles inside the calendar smaller */
+      .fc-event-title {
+        margin-top: 2px;
+        font-size: 12px;
+      }
+      /* Overide 'today' highlighted */
+      .fc-day-today {
+        background-color: transparent !important;
+      }
+
+      .toggle-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        border: none;
+        background-color: #f29900;
+        cursor: pointer;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+
+      li {
+        padding: 5px 5px 0px 5px;
+      }
+
+      .add-btn {
+        text-align: center;
+        font-size: 18px;
+        background-color: #3f629c;
+        width: 24px;
+        height: 24px;
+        color: #fdfdfd;
+        border-radius: 5px; 
+        border: none; 
+        padding: 3px;
+        transition: all 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="coursePlannerSidebar">
+      <h3 id="pluginTitle">UM Courses Planner</h3>
+      <div >
+        <div id="courseContent">
+          <div id="courseList"></div>
+        </div>
+        <div id="calendar"></div>
+      </div>
+      <button id="toggleSidebar" class="toggle-btn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M0 5h20M0 10h20M0 15h20" />
+        </svg>
+      </button>
+    </div>
+  </body>
+</html>
