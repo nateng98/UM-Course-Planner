@@ -1,18 +1,22 @@
 let sidebar;
 let calendar;
-let courses = JSON.parse(localStorage.getItem('savedCourses')) || [];;
+let courses = [];
+
+// Just a reminder: probably use these
+let addedCourses = []; // load all added courses to the calendar
+let newCourses = []; // load new courses to list of sessions
 
 // Initialize the sidebar when aurora.umanitoba.ca/*
 window.addEventListener('load', () => {
   loadSidebar(courses);
+});
 
-  if (document.body.innerText.includes('Sections Found')) {
-    const newCourses = getCourseData();
-    console.log(newCourses);
-    localStorage.setItem('savedCourses', JSON.stringify(courses));
-    initializeCoursesDisplayment(newCourses);
-  }
-})
+if (document.body.innerText.includes('Sections Found')) {
+  // Proceed with your logic to extract course data and create calendar
+  courses = getCourseData();
+} else {
+  console.log('Not a course layout page.');
+}
 
 // Load the sidebar HTML dynamically
 function loadSidebar(courses) {
@@ -22,7 +26,7 @@ function loadSidebar(courses) {
       document.body.insertAdjacentHTML('beforeend', html);
       initializeSidebarLogic();
       initializeFullCalendar();
-      // initializeCoursesDisplayment(courses); // Load any pre-existing courses
+      initializeCoursesDisplayment(courses);
     })
     .catch((error) => console.error('Error loading sidebar:', error));
 }
@@ -73,19 +77,6 @@ function initializeFullCalendar() {
   });
 
   calendar.render();
-
-  // Re-add existing courses/events from localStorage
-  courses.forEach(course => {
-    const { parsedDay, start24Hour, end24Hour } = parseDayAndTime(course.Days, course.Time);
-    calendar.addEvent({
-      id: course.CRN,
-      title: `${course.Name} ${course.Sec}`,
-      daysOfWeek: parsedDay,
-      startTime: `${start24Hour}`,
-      endTime: `${end24Hour}`,
-    });
-  })
-
   console.log('FullCalendar rendered successfully');
 }
 
@@ -100,7 +91,7 @@ function initializeCoursesDisplayment (courses) {
   courseList.innerHTML = '';
 
   if (courses.length === 0) {
-    courseList.innerHTML = '<p>No sections available</p>'
+    courseList.innerHTML = '<p>No sections found</p>'
     return;
   }
 
@@ -139,16 +130,12 @@ function initializeAddRemoveBtn (crn) {
           startTime: `${start24Hour}`,
           endTime: `${end24Hour}`,
         });
-        courses.push(course); // Add to the courses list
-        localStorage.setItem('savedCourses', JSON.stringify(courses)); // Save to localStorage
         console.log(`Added ${course.CRN} to the calendar.`);
         // change button style
         button.style.backgroundColor = '#c54e4e';
         button.innerText = '×';
       } else {
         calendar.getEventById(crn).remove();
-        courses = courses.filter(c => c.CRN !== course.CRN); // Remove from the courses list
-        localStorage.setItem('savedCourses', JSON.stringify(courses)); // Update localStorage
         console.log(`Removed ${course.CRN} from the calendar.`);
         // change button style
         button.style.backgroundColor = '#3f629c';
