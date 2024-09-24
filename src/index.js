@@ -1,10 +1,8 @@
 let sidebar;
 let calendar;
-let courses = [];
+let courses = []; // courses that appear on list of sections
 
-// Just a reminder: probably use these
-let addedCourses = []; // load all added courses to the calendar
-let newCourses = []; // load new courses to list of sessions
+let addedCourses = JSON.parse(sessionStorage.getItem('addedCourses')) || [];
 
 // Initialize the sidebar when aurora.umanitoba.ca/*
 window.addEventListener('load', () => {
@@ -25,7 +23,7 @@ function loadSidebar(courses) {
     .then((html) => {
       document.body.insertAdjacentHTML('beforeend', html);
       initializeSidebarLogic();
-      initializeFullCalendar();
+      initializeFullCalendar(addedCourses);
       initializeCoursesDisplayment(courses);
     })
     .catch((error) => console.error('Error loading sidebar:', error));
@@ -54,7 +52,7 @@ function initializeSidebarLogic() {
 }
 
 // Initialize FullCalendar
-function initializeFullCalendar() {
+function initializeFullCalendar(addedCourses) {
   const calendarEl = document.getElementById('calendar');
 
   if (!calendarEl) {
@@ -71,9 +69,14 @@ function initializeFullCalendar() {
     height: 'auto',                    // Adjust the height automatically
     allDaySlot: false,                 // Disable the all-day slot
     dayHeaderFormat: {                 // Format the day headers to only show the day of the week
-      weekday: 'long'                  // Display 'Mon', 'Tue', etc.
+      weekday: 'short'                 // Display 'Mon', 'Tue', etc.
     },
     nowIndicator: false,               // Hide the marker indicating the current time
+  });
+
+  // Add existing courses to the calendar
+  addedCourses.forEach(course => {
+    calendar.addEvent(course);
   });
 
   calendar.render();
@@ -118,6 +121,12 @@ function initializeAddRemoveBtn (crn) {
   const course = courses.find(course => course.CRN === crn);
 
   if (button) {
+    if (addedCourses.find(addedCourse => addedCourse.id === crn)) {
+      // change button style
+      button.style.backgroundColor = '#c54e4e';
+      button.innerText = '×';
+    }
+
     button.addEventListener('click', function () {
       const {parsedDay, start24Hour, end24Hour} = parseDayAndTime(course.Days, course.Time);
 
@@ -130,12 +139,28 @@ function initializeAddRemoveBtn (crn) {
           startTime: `${start24Hour}`,
           endTime: `${end24Hour}`,
         });
+
+        // Add course to addedCourses then save them to sessionStorage
+        addedCourses.push({
+          id: course.CRN,
+          title: `${course.Name} ${course.Sec}`,
+          daysOfWeek: parsedDay,
+          startTime: `${start24Hour}`,
+          endTime: `${end24Hour}`,
+        });
+        sessionStorage.setItem('addedCourses', JSON.stringify(addedCourses));
+
         console.log(`Added ${course.CRN} to the calendar.`);
         // change button style
         button.style.backgroundColor = '#c54e4e';
         button.innerText = '×';
       } else {
         calendar.getEventById(crn).remove();
+
+        // remove course from addCourses and update added courses in the current session
+        addedCourses = addedCourses.filter(item => item.id !== crn);
+        sessionStorage.setItem('addedCourses', JSON.stringify(addedCourses));
+
         console.log(`Removed ${course.CRN} from the calendar.`);
         // change button style
         button.style.backgroundColor = '#3f629c';
