@@ -39,6 +39,12 @@ git clone https://github.com/nateng98/UM-Course-Planner.git
 - Chrome API: For browser extension functionalities.
 - FullCalendar.js: To provide a rich calendar interface.
 
+## Privacy Policy
+UM Courses Planner does not collect or store any personal data. All data is kept local in your browser’s session storage for your convenience.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](/LICENSE) file for details.
+
 ## Contributing
 Feel free to submit a pull request if you have any suggestions or would like to contribute! You can also open an issue to report bugs or request new features.
 

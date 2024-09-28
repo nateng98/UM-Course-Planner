@@ -3,6 +3,11 @@
   "name": "UM Courses Planner",
   "version": "1.0",
   "description": "A tool to help students plan their courses at UM.",
+  "icons": {
+    "16": "src/assets/umcourseplanner16.png",
+    "48": "src/assets/umcourseplanner48.png",
+    "128": "src/assets/umcourseplanner128.png"
+  },
   "permissions": ["activeTab", "storage"],
   "host_permissions": ["https://aurora.umanitoba.ca/*"],
   "background": {
