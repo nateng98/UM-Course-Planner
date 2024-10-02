@@ -1,5 +1,7 @@
 # UM Course Planner - Web Extension
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Now available on [Chrome Web Store](https://chromewebstore.google.com/detail/um-courses-planner/oeakichjhkoeiocekhdnnjcacbmicodi?authuser=0&hl=en-GB) and [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/um-courses-planner/eimhfmfnbcgdglohcmbppmmfnpijjlkc)
 
 ## Overview
