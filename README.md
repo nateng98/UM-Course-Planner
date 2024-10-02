@@ -1,5 +1,7 @@
 # UM Course Planner - Web Extension
 
+Now available on [Chrome Web Store](https://chromewebstore.google.com/detail/um-courses-planner/oeakichjhkoeiocekhdnnjcacbmicodi?authuser=0&hl=en-GB) and [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/um-courses-planner/eimhfmfnbcgdglohcmbppmmfnpijjlkc)
+
 ## Overview
 
 UM Courses Planner is a Chrome/Edge web extension designed to streamline the process of planning and visualizing University of Manitoba course schedules. The extension extracts course information from the Aurora Student portal and automatically populates a weekly calendar, helping students organize their schedules more efficiently.
@@ -14,7 +16,11 @@ UM Courses Planner is a Chrome/Edge web extension designed to streamline the pro
 4. Session Persistence: The selected courses are saved in sessionStorage, allowing users to switch between Aurora pages without losing their schedule.
 
 ## Installation
-
+### Get from Chrome & Edge Extension Website
+- [Chrome Web Store](https://chromewebstore.google.com/detail/um-courses-planner/oeakichjhkoeiocekhdnnjcacbmicodi?authuser=0&hl=en-GB)
+- [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/um-courses-planner/eimhfmfnbcgdglohcmbppmmfnpijjlkc)
+  
+### Manually install
 1. Clone the repository:
 
 ```bash
